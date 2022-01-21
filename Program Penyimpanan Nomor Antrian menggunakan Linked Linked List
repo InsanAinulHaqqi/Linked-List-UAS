@@ -1,0 +1,167 @@
+package linkedlist1iah;
+
+import java.util.LinkedList;
+import java.util.Scanner;
+import java.util.InputMismatchException;
+public class Linkedlist1IAH {
+    private static LinkedList<String> dataStorage = new LinkedList<String>();
+    private static void judulProgram() {
+		System.out.println("\nProject Akhir UAS Struktur Data" + "\nInsan Ainul Haqqi (NIM: 12001009)" 
+                        + "\nTeknik Informatika Semester 3" + "\nProgram Penyimpanan Nomor Antrian Pelamar Kerja menggunakan Linked List"
+                + "\nProgram Language: JAVA");
+	}
+    public static void main(String[] args) {
+		judulProgram();
+		daftarAction();
+	}
+	
+	private static Scanner extracted() {
+		return new Scanner(System.in);
+	}
+	
+	private static void tampilkanData(){
+		System.out.println("\nData dalam List: " + dataStorage);
+		System.out.println("Total Data     : " + dataStorage.size());
+	}
+	
+	private static void masukData() {
+		System.out.print("Masukkan Data (Nama_Nomor Antrian Surat Lamaran): ");
+		String tempData = extracted().nextLine();
+		dataStorage.add(tempData);
+		tampilkanData();
+	}
+	
+	private static void dataAntrianPertama() {
+		System.out.print("Masukkan Data: ");
+		String tempData = extracted().nextLine();
+		dataStorage.addFirst(tempData);
+		tampilkanData();
+	}
+	
+	private static void dataAntrianTerakhir() {
+		System.out.print("Masukkan Data: ");
+		String tempData = extracted().nextLine();
+		dataStorage.addLast(tempData);
+		tampilkanData();
+	}
+	
+	private static void sisipDataAntrian() {
+		boolean status = true;
+		int indexData = 0;
+		tampilkanData();
+		while(status) {
+			System.out.print("Pilih pada nomor antrian ke berapa data ingin disisipi: [0-" + (dataStorage.size() - 1) + "]: ");
+			try {
+				status = false;
+				indexData = extracted().nextInt();
+			}
+			catch(InputMismatchException e) {
+				System.out.println("Data harus berupa Angka!");
+				status = true;
+			}
+		}
+		System.out.print("Data yang ingin disisipkan pada nomor antrian " + indexData + ": ");
+		String tempData = extracted().nextLine();
+		dataStorage.add(indexData, tempData);
+		tampilkanData();
+	}
+	
+	private static boolean searchData(String data) {
+		return dataStorage.contains(data);
+	}
+	
+        private static void hapusData(){
+            dataStorage.removeAll(dataStorage);
+            tampilkanData();
+        }
+	private static void hapusDataTertentu() {
+		boolean status = true;
+		int indexData = 0;
+		tampilkanData();
+		while(status) {
+			System.out.print("Pilih pada nomor antrian ke berapa data ingin dihapus: [0-" + (dataStorage.size() - 1) + "]: ");
+			try {
+				status = false;
+				indexData = extracted().nextInt();
+			}
+			catch(InputMismatchException e) {
+				System.out.println("Data harus berupa Angka!");
+				status = true;
+			}
+		}
+		dataStorage.remove(indexData);
+		tampilkanData();
+	}
+	
+	private static void hapusDataPertama() {
+		dataStorage.removeFirst();
+		tampilkanData();
+	}
+	
+	private static void hapusDataTerakhir() {
+		dataStorage.removeLast();
+		tampilkanData();
+	}
+	
+	private static void keluar() {
+		System.exit(0);
+	}
+	
+	
+	
+	private static void Switcher() {
+		boolean status = true;
+		int daftarCase = 0;
+		while(status) {
+			try {
+				status = false;
+				System.out.print("Pilih Action (1-9): ");
+				daftarCase = extracted().nextInt();
+			}
+			catch(InputMismatchException e) {
+				System.out.println("Masukan harus berupa Angka!");
+				status = true;
+			}
+		}
+		
+		switch(daftarCase) {
+			case 1: masukData();
+                        break;
+			case 2: dataAntrianPertama();
+                        break;
+			case 3: dataAntrianTerakhir();
+                        break;
+			case 4: sisipDataAntrian();
+                        break;
+                        case 5: hapusData();
+                        break;
+			case 6: hapusDataTertentu();
+                        break;
+			case 7: hapusDataPertama();
+                        break;
+                        case 8: hapusDataTerakhir();
+                        break;
+                        case 9: tampilkanData();
+                        break;
+			case 10: keluar();
+                        break;
+		}
+		daftarAction();
+	}
+	
+	private static void daftarAction() {
+		System.out.println("\n ACTION:"
+				         + "\n 1. Tambahkan Data"
+				         + "\n 2. Masukkan Data Pada Antrian Pertama"
+				         + "\n 3. Masukkan Data Pada Antrian Terakhir"
+				         + "\n 4. Sisipkan Data Pada Antrian ke 'n'"
+                                         + "\n 5. Hapus Semua Data"
+				         + "\n 6. Hapus Antrian ke 'n'"
+				         + "\n 7. Hapus Antrian Pertama"
+				         + "\n 8. Hapus Antrian Terakhir"
+                                         + "\n 9. Tampilkan Semua Data"
+				         + "\n 10. Keluar");
+				         
+		Switcher();
+	}
+}
